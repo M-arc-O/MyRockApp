@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyRockApp.Data.Models
+namespace MyRockApp.Models
 {
-    [Table("Songs")]
     public class Song
     {
-        [Key]
         public int SongId { get; set; }
 
         [Required]
@@ -18,7 +15,8 @@ namespace MyRockApp.Data.Models
         [Required]
         public string Shortname { get; set; }
 
-        public int? Bpm { get; set; }
+        [Required]
+        public int Bpm { get; set; }
 
         [Required]
         public int Duration { get; set; }
@@ -26,11 +24,12 @@ namespace MyRockApp.Data.Models
         [Required]
         public string Genre { get; set; }
 
-        public string? SpotifyId { get; set; }
-
-        public string? Album { get; set; }
+        [Required]
+        public string SpotifyId { get; set; }
 
         [Required]
-        public string Artist { get; set; }
+        public string Album { get; set; }
+
+        public Artist Artist { get; set; }
     }
 }

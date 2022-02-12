@@ -161,7 +161,7 @@ namespace MyRockApp.DataTest
                     Shortname = $"Shortname{i}",
                     SpotifyId = $"SpotifyId{i}",
                     Year = i,
-                    Artist = artist
+                    Artist = artist.Name
                 };
 
                 artist.Songs.Add(song);

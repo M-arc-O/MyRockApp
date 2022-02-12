@@ -1,11 +1,18 @@
+using MyRockApp.Extensions;
+using MyRockApp.Services.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapperProfiles();
 
+// Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddServices();
+builder.Services.AddDBContext();
 
 var app = builder.Build();
 
