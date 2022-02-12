@@ -6,7 +6,7 @@ namespace MyRockApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [ApiKeyAttribute]
+    [ApiKey]
     public class InitializationController : ControllerBase
     {
         private readonly IInitializationService _service;

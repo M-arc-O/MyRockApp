@@ -7,12 +7,14 @@ namespace MyRockApp.Models
         public int SongId { get; set; }
 
         [Required]
+        [MinLength(1)]
         public string Name { get; set; }
 
         [Required]
         public int Year { get; set; }
 
         [Required]
+        [MinLength(1)]
         public string Shortname { get; set; }
 
         [Required]
@@ -22,6 +24,7 @@ namespace MyRockApp.Models
         public int Duration { get; set; }
 
         [Required]
+        [MinLength(1)]
         public string Genre { get; set; }
 
         [Required]
@@ -29,7 +32,5 @@ namespace MyRockApp.Models
 
         [Required]
         public string Album { get; set; }
-
-        public Artist Artist { get; set; }
     }
 }

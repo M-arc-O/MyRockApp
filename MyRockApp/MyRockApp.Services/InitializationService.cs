@@ -41,9 +41,9 @@ namespace MyRockApp.Services
                     _artistService.Add(a);
                 });
             songs.ForEach(s =>
-            {
-                _songService.Add(s);
-            });
+                {
+                    _songService.Add(s);
+                });
         }
 
         private List<T> GetEntities<T>(string fileName)

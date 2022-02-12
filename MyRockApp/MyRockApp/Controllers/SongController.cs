@@ -8,7 +8,7 @@ namespace MyRockApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [ApiKeyAttribute]
+    [ApiKey]
     public class SongController : ControllerBase
     {
         private readonly IMapper _mapper;
