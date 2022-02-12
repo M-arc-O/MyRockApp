@@ -2,6 +2,6 @@
 {
     public interface IInitializationService
     {
-        void Initialize();
+        Task InitializeAsync();
     }
 }

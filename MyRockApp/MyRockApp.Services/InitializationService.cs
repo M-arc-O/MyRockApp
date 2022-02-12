@@ -9,30 +9,37 @@ namespace MyRockApp.Services
         private readonly IArtistService _artistService;
         private readonly ISongService _songService;
 
-        private const string _artistsFileName = "artists.json";
-
         public InitializationService(IArtistService artistService, ISongService songService)
         {
             _artistService = artistService ?? throw new ArgumentNullException(nameof(artistService));
             _songService = songService ?? throw new ArgumentNullException(nameof(songService));
         }
 
-        public void Initialize()
+        public async Task InitializeAsync()
         {
             var artistsFileName = "artists.json";
             var songsFileName = "songs.json";
 
-            using var client = new WebClient();
-            client.DownloadFile("https://raw.githubusercontent.com/Team-Rockstars-IT/MusicLibrary/v1.0/artists.json", artistsFileName);
-            client.DownloadFile("https://raw.githubusercontent.com/Team-Rockstars-IT/MusicLibrary/v1.0/songs.json", songsFileName);
+            using HttpClient client = new();
+            using var artistResponse = await client.GetStreamAsync("https://raw.githubusercontent.com/Team-Rockstars-IT/MusicLibrary/v1.0/artists.json");
+            using (FileStream artistFs = new(artistsFileName, FileMode.OpenOrCreate))
+            {
+                await artistResponse.CopyToAsync(artistFs);
+            }
+
+            using var songResponse = await client.GetStreamAsync("https://raw.githubusercontent.com/Team-Rockstars-IT/MusicLibrary/v1.0/songs.json");
+            using (FileStream songFs = new(songsFileName, FileMode.OpenOrCreate))
+            {
+                await songResponse.CopyToAsync(songFs);
+            }
 
             List<Artist> artists = GetEntities<Artist>(artistsFileName);
             List<Song> songs = GetEntities<Song>(songsFileName);
 
             artists.ForEach(a =>
-            {
-                _artistService.Add(a);
-            });
+                {
+                    _artistService.Add(a);
+                });
             songs.ForEach(s =>
             {
                 _songService.Add(s);
@@ -41,7 +48,7 @@ namespace MyRockApp.Services
 
         private List<T> GetEntities<T>(string fileName)
         {
-            List<T> items = null;
+            List<T>? items = null;
 
             using (StreamReader r = new StreamReader(fileName))
             {

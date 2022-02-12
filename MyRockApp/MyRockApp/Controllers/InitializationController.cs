@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyRockApp.Attributes;
 using MyRockApp.Services;
 
 namespace MyRockApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ApiKeyAttribute]
     public class InitializationController : ControllerBase
     {
         private readonly IInitializationService _service;
@@ -15,9 +17,9 @@ namespace MyRockApp.Controllers
         }
 
         [HttpPut(Name = "Initialize")]
-        public IActionResult Initialize()
+        public async Task<IActionResult> Initialize()
         {
-            _service.Initialize();
+            await _service.InitializeAsync();
             return Ok();
         }
     }

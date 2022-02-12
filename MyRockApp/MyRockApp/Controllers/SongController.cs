@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MyRockApp.Attributes;
 using MyRockApp.Models;
 using MyRockApp.Services;
 
@@ -7,6 +8,7 @@ namespace MyRockApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ApiKeyAttribute]
     public class SongController : ControllerBase
     {
         private readonly IMapper _mapper;
